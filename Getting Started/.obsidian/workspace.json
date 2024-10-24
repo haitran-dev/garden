@@ -1,0 +1,187 @@
+{
+  "main": {
+    "id": "bb7b92c3858a89dd",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6713d6aec2fae7f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "567d987a25187e3f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Welcome to markdown.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Welcome to markdown"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "5a7630e62d037037",
+    "type": "split",
+    "children": [
+      {
+        "id": "6b2dee4137a572cd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "10b9d584927d692c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "7547dcc8c83740fe",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0ba3c7ad48b0c718",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bb011f95463c4175",
+    "type": "split",
+    "children": [
+      {
+        "id": "d747ccab5c497704",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "be6ea05cc8d0ed36",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Welcome to markdown.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Welcome to markdown"
+            }
+          },
+          {
+            "id": "968080ac510e9f57",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Welcome to markdown.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Welcome to markdown"
+            }
+          },
+          {
+            "id": "28a6f01731a30d1e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "d44fed078e6935b7",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Welcome to markdown.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Welcome to markdown"
+            }
+          },
+          {
+            "id": "0a3f3d34c0e4bbb3",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "567d987a25187e3f",
+  "lastOpenFiles": [
+    "Welcome to markdown.md",
+    "().md",
+    "2024-10-23.md",
+    "google.com.md",
+    "create a link.md",
+    "Untitled 1.canvas",
+    "Untitled.canvas"
+  ]
+}
