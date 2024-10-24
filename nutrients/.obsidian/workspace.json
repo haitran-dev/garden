@@ -4,22 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "b6713d6aec2fae7f",
+        "id": "f76e1c80e373ff20",
         "type": "tabs",
         "children": [
           {
-            "id": "567d987a25187e3f",
+            "id": "f365afab648fb8af",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Welcome to markdown.md",
+                "file": "0. Getting Started/Hello Markdown.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Welcome to markdown"
+              "title": "Hello Markdown"
             }
           }
         ]
@@ -41,7 +41,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "byCreatedTimeReverse"
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -139,11 +139,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Welcome to markdown.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "Outline of Welcome to markdown"
+              "title": "Outline"
             }
           },
           {
@@ -169,14 +167,17 @@
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "567d987a25187e3f",
+  "active": "10b9d584927d692c",
   "lastOpenFiles": [
-    "Welcome to markdown.md",
+    "2024-10-24.md",
+    "History of Computer",
+    "0. Getting Started/Hello Markdown.md",
+    "History of Computer",
+    "0. Getting Started",
     "().md",
     "2024-10-23.md",
     "google.com.md",
