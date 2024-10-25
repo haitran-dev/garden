@@ -11,15 +11,10 @@
             "id": "f365afab648fb8af",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "0. Getting Started/Hello Markdown.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Hello Markdown"
+              "title": "New tab"
             }
           }
         ]
@@ -94,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Welcome to markdown.md",
+                "file": "0. Getting Started/Hello Markdown.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Welcome to markdown"
+              "title": "Backlinks for Hello Markdown"
             }
           },
           {
@@ -113,12 +108,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Welcome to markdown.md",
+                "file": "0. Getting Started/Hello Markdown.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Welcome to markdown"
+              "title": "Outgoing links from Hello Markdown"
             }
           },
           {
@@ -139,9 +134,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "0. Getting Started/Hello Markdown.md"
+              },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Hello Markdown"
             }
           },
           {
@@ -171,11 +168,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "10b9d584927d692c",
+  "active": "0a3f3d34c0e4bbb3",
   "lastOpenFiles": [
+    "0. Getting Started/Hello Markdown.md",
+    "0. Getting Started/Internal LInk.md",
     "2024-10-24.md",
     "History of Computer",
-    "0. Getting Started/Hello Markdown.md",
     "History of Computer",
     "0. Getting Started",
     "().md",
