@@ -4,17 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "f76e1c80e373ff20",
+        "id": "51141824832bb68f",
         "type": "tabs",
         "children": [
           {
-            "id": "f365afab648fb8af",
+            "id": "c58c8b78b94b150a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "diff-view",
+              "state": {
+                "file": "nutrients/.obsidian/workspace.json",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (workspace.json)"
             }
           }
         ]
@@ -48,7 +51,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#career",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,7 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 286.5
   },
   "right": {
     "id": "bb011f95463c4175",
@@ -156,7 +159,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 371.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -168,19 +171,30 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0a3f3d34c0e4bbb3",
+  "active": "c58c8b78b94b150a",
   "lastOpenFiles": [
+    "0. Xin chào.md",
+    "Reboot my web development journey/0. Why reboot ?.md",
+    "Reboot my web development journey/History/untested.md",
+    "Untitled.canvas",
+    "smart-chats/UNTITLED CHAT 2024-10-29 07 05 05.md",
+    "smart-chats",
+    "Gemini Chats/New Chat 16.gemini",
+    "Gemini Chats/New Chat 15.gemini",
+    "Gemini Chats/New Chat 14.gemini",
+    "Gemini Chats/New Chat 13.gemini",
+    "Gemini Chats/New Chat 12.gemini",
+    "Gemini Chats/New Chat 11.gemini",
+    "Gemini Chats/New Chat 10.gemini",
+    "Gemini Chats/New Chat 9.gemini",
+    "Gemini Chats/New Chat 8.gemini",
     "0. Getting Started/Hello Markdown.md",
     "0. Getting Started/Internal LInk.md",
     "2024-10-24.md",
-    "History of Computer",
-    "History of Computer",
-    "0. Getting Started",
     "().md",
     "2024-10-23.md",
     "google.com.md",
     "create a link.md",
-    "Untitled 1.canvas",
-    "Untitled.canvas"
+    "Untitled 1.canvas"
   ]
 }
