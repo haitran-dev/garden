@@ -1,0 +1,79 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const tools = [
+  {
+    title: "URL to EPUB",
+    description:
+      "Convert any article or blog post to EPUB format for easy reading",
+    path: "/tools/url-to-epub",
+    icon: "📚",
+  },
+];
+---
+
+<Layout title="Digital Tools">
+  <main class="tools-container">
+    <h1>Digital Tools</h1>
+
+    <div class="tools-grid">
+      {
+        tools.map((tool) => (
+          <a href={tool.path} class="tool-card">
+            <div class="tool-icon">{tool.icon}</div>
+            <h2>{tool.title}</h2>
+            <p>{tool.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .tools-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tool-card {
+    display: block;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .tool-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .tool-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .tool-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tool-card p {
+    color: #666;
+  }
+</style>

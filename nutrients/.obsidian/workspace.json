@@ -11,13 +11,15 @@
             "id": "c58c8b78b94b150a",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "markdown",
               "state": {
-                "file": "nutrients/.obsidian/workspace.json",
-                "staged": false
+                "file": "0. Xin chào.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
               },
-              "icon": "git-pull-request",
-              "title": "Diff View (workspace.json)"
+              "icon": "lucide-file",
+              "title": "0. Xin chào"
             }
           }
         ]
