@@ -1,0 +1,149 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const links = [
+  { text: "Home", href: "#" },
+  { text: "Craft", href: "#" },
+  { text: "Posts", href: "#" },
+  { text: "Snippets", href: "#" },
+  { text: "Subscribe", href: "#" },
+];
+---
+
+<Layout title="CSS Magnetic Links Demo">
+  <main class="container">
+    <header>
+      <a href="/demos" class="back-link">← Back to Demos</a>
+      <h1>Magnetic Links</h1>
+      <p class="description">
+        Pure CSS magnetic hover effect using anchor positioning
+      </p>
+    </header>
+
+    <nav class="magnetic-nav">
+      <ul class="magnetic-list">
+        {
+          links.map((link) => (
+            <li class="magnetic-item">
+              <a href={link.href} class="magnetic-link">
+                {link.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </main>
+</Layout>
+
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .magnetic-nav {
+    position: relative;
+    background: #1a1a1a;
+    padding: 0.5rem;
+    border-radius: 12px;
+    width: fit-content;
+    margin: 40px auto;
+  }
+
+  .magnetic-list {
+    position: relative;
+    display: flex;
+    list-style: none;
+    gap: 0;
+  }
+
+  .magnetic-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #fff;
+    border-radius: 6px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    left: anchor(--a left);
+    width: anchor-size(--a width);
+  }
+
+  .magnetic-item {
+    position: relative;
+  }
+
+  .magnetic-item:has(a:is(:hover, :focus-visible)) {
+    anchor-name: --a;
+  }
+
+  .magnetic-link {
+    position: relative;
+    color: #aaa;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    display: block;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .magnetic-link:hover {
+    color: #fff;
+  }
+
+  .magnetic-list:hover::before {
+    opacity: 0.2;
+  }
+
+  .magnetic-item:has(.magnetic-link:hover) ~ .magnetic-list::before {
+    opacity: 0.2;
+  }
+
+  @media (max-width: 768px) {
+    .magnetic-nav {
+      max-width: 100%;
+    }
+
+    .magnetic-list {
+      flex-direction: column;
+    }
+
+    .magnetic-list::before {
+      content: "";
+      position: absolute;
+      background: #fff;
+      border-radius: 6px;
+      opacity: 0;
+      top: anchor(--a top);
+      height: anchor-size(--a height);
+      transition: all 0.2s ease;
+    }
+
+    .magnetic-item:has(a:is(:hover, :focus-visible)) {
+      anchor-name: --a;
+    }
+
+    .magnetic-item {
+      width: 100%;
+    }
+
+    .magnetic-link {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+
+    .magnetic-list:hover::before {
+      opacity: 0.2;
+    }
+  }
+</style>

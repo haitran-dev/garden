@@ -1,0 +1,130 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const demos = [
+  {
+    title: "CSS Grid Gallery",
+    description: "A responsive image gallery using CSS Grid with hover effects",
+    path: "/demos/grid-gallery",
+    icon: "🖼️",
+  },
+  {
+    title: "Magnetic Links",
+    description: "Pure CSS magnetic hover effect that follows your cursor",
+    path: "/demos/magnetic-links",
+    icon: "🧲",
+  },
+  {
+    title: "Canvas Playground",
+    description: "Interactive canvas experiments with JavaScript",
+    path: "/demos/canvas",
+    icon: "🎨",
+  },
+  {
+    title: "CSS Animations",
+    description: "Collection of pure CSS animations and transitions",
+    path: "/demos/animations",
+    icon: "✨",
+  },
+];
+---
+
+<Layout title="Tech Demos">
+  <main class="demos-container">
+    <h1>Tech Demos</h1>
+    <p class="subtitle">Playground for experimenting with web technologies</p>
+
+    <div class="demos-grid">
+      {
+        demos.map((demo) => (
+          <a href={demo.path} class="demo-card">
+            <div class="demo-icon">{demo.icon}</div>
+            <h2>{demo.title}</h2>
+            <p>{demo.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .demos-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #007cf0, #00dfd8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .demos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .demo-card {
+    display: block;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .demo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: #007cf0;
+  }
+
+  .demo-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .demo-card:hover .demo-icon {
+    transform: scale(1.1);
+  }
+
+  .demo-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #2d2d2d;
+  }
+
+  .demo-card p {
+    color: #666;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .demos-container {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .demos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
