@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
 import { Image } from "astro:assets";
 
 const images = Array.from({ length: 6 }, (_, i) => ({
@@ -9,78 +10,45 @@ const images = Array.from({ length: 6 }, (_, i) => ({
 }));
 ---
 
-<Layout title="CSS Grid Gallery Demo">
-  <main class="container">
-    <header>
+<Layout title="Grid Gallery Demo">
+  <main class="demo-container">
+    <header class="demo-header">
       <a href="/demos" class="back-link">← Back to Demos</a>
-      <h1>CSS Grid Gallery</h1>
-      <p class="description">
-        An optimized image gallery using Astro's Image component
-      </p>
+      <h1 class="demo-title">Grid Gallery</h1>
+      <p class="demo-description">Responsive grid gallery with hover effects</p>
     </header>
 
-    <div class="gallery">
-      {
-        images.map((image) => (
-          <div class="gallery-item">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={800}
-              height={600}
-              format="webp"
-              loading="lazy"
-              decoding="async"
-              quality={80}
-            />
-            <div class="overlay">
-              <span class="image-number">Image {image.id}</span>
+    <div class="demo-content">
+      <div class="gallery">
+        {
+          images.map((image) => (
+            <div class="gallery-item">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={800}
+                height={600}
+                format="webp"
+                loading="lazy"
+                decoding="async"
+                quality={80}
+              />
+              <div class="overlay">
+                <span class="image-number">Image {image.id}</span>
+              </div>
             </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
   </main>
 </Layout>
 
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .back-link {
-    display: inline-block;
-    margin-bottom: 1rem;
-    color: #007cf0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .back-link:hover {
-    color: #00dfd8;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(45deg, #007cf0, #00dfd8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .description {
-    color: #666;
-    margin-bottom: 2rem;
-  }
-
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
-    padding: 1rem 0;
   }
 
   .gallery-item {
@@ -127,19 +95,5 @@ const images = Array.from({ length: 6 }, (_, i) => ({
   .image-number {
     color: white;
     font-size: 0.9rem;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 1rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    .gallery {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

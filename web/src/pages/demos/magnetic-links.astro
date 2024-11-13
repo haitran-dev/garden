@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
 
 const links = [
   { text: "Home", href: "#" },
@@ -11,47 +12,41 @@ const links = [
 ---
 
 <Layout title="CSS Magnetic Links Demo">
-  <main class="container">
-    <header>
+  <main class="demo-container">
+    <header class="demo-header">
       <a href="/demos" class="back-link">← Back to Demos</a>
-      <h1>Magnetic Links</h1>
-      <p class="description">
+      <h1 class="demo-title">Magnetic Links</h1>
+      <p class="demo-description">
         Pure CSS magnetic hover effect using anchor positioning
       </p>
     </header>
 
-    <nav class="magnetic-nav">
-      <ul class="magnetic-list">
-        {
-          links.map((link) => (
-            <li class="magnetic-item">
-              <a href={link.href} class="magnetic-link">
-                {link.text}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <div class="demo-content">
+      <nav class="magnetic-nav">
+        <ul class="magnetic-list">
+          {
+            links.map((link) => (
+              <li class="magnetic-item">
+                <a href={link.href} class="magnetic-link">
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
   </main>
 </Layout>
 
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
   .magnetic-nav {
     position: relative;
     background: #1a1a1a;
     padding: 0.5rem;
     border-radius: 12px;
     width: fit-content;
-    margin: 40px auto;
+    margin: 0 auto;
   }
 
   .magnetic-list {

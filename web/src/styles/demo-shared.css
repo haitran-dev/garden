@@ -1,0 +1,56 @@
+/* Demo page layout and structure */
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.demo-header {
+  margin-bottom: 3rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #007cf0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #00dfd8;
+}
+
+.demo-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #007cf0, #00dfd8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.demo-description {
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
+.demo-content {
+  padding: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .demo-container {
+    padding: 1rem;
+  }
+
+  .demo-title {
+    font-size: 2rem;
+  }
+
+  .demo-header {
+    margin-bottom: 2rem;
+  }
+}
