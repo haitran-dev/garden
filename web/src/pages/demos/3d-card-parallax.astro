@@ -1,0 +1,153 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
+import { Image } from "astro:assets";
+
+const cards = Array.from({ length: 3 }, (_, i) => ({
+  id: i + 1,
+  title: ["Hover Me", "3D Effect", "Interactive"][i],
+  description: [
+    "Move your mouse to see the 3D effect",
+    "Smooth transitions and parallax movement",
+    "Dynamic lighting and perspective changes",
+  ][i],
+  image: `https://picsum.photos/seed/image${i + 1}/800/600`,
+}));
+---
+
+<Layout title="3D Card Parallax">
+  <main class="demo-container">
+    <header class="demo-header">
+      <a href="/demos" class="back-link">← Back to Demos</a>
+      <h1 class="demo-title">3D Card Parallax</h1>
+      <p class="demo-description">Interactive 3D cards with parallax effect</p>
+    </header>
+
+    <div class="cards-container">
+      {
+        cards.map((card) => (
+          <div class="card">
+            <div class="card-content">
+              <Image
+                src={card.image}
+                alt={`Card image ${card.id}`}
+                width={800}
+                height={600}
+                format="webp"
+                class="card-image"
+              />
+              <div class="card-text">
+                <h2>{card.title}</h2>
+                <p>{card.description}</p>
+              </div>
+              <div class="card-shine" />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    perspective: 2000px;
+  }
+
+  .card {
+    position: relative;
+    height: 400px;
+    border-radius: 1rem;
+    transform-style: preserve-3d;
+    transform: perspective(2000px);
+  }
+
+  .card-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+  }
+
+  .card-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .card:hover .card-shine {
+    opacity: 1;
+  }
+
+  h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    transform: translateZ(50px);
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.8);
+    transform: translateZ(30px);
+  }
+</style>
+
+<script>
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = (y - centerY) / 30;
+      const rotateY = (centerX - x) / 30;
+
+      card.style.setProperty("--mouse-x", `${(x / rect.width) * 100}%`);
+      card.style.setProperty("--mouse-y", `${(y / rect.height) * 100}%`);
+
+      const content = card.querySelector(".card-content");
+      content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      const content = card.querySelector(".card-content");
+      content.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0px)";
+    });
+  });
+</script>

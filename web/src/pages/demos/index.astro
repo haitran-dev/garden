@@ -1,44 +1,67 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
 
 const demos = [
   {
-    title: "CSS Grid Gallery",
-    description: "A responsive image gallery using CSS Grid with hover effects",
-    path: "/demos/grid-gallery",
+    title: "Grid Gallery",
+    description: "Responsive grid gallery with hover effects",
+    href: "/demos/grid-gallery",
     icon: "🖼️",
   },
   {
     title: "Magnetic Links",
-    description: "Pure CSS magnetic hover effect that follows your cursor",
-    path: "/demos/magnetic-links",
+    description: "Pure CSS magnetic hover effect using anchor positioning",
+    href: "/demos/magnetic-links",
     icon: "🧲",
   },
   {
-    title: "Canvas Playground",
-    description: "Interactive canvas experiments with JavaScript",
-    path: "/demos/canvas",
-    icon: "🎨",
+    title: "3D Card Parallax",
+    description:
+      "Interactive 3D cards with parallax effects and smooth transitions",
+    href: "/demos/3d-card-parallax",
+    icon: "🃏",
   },
   {
-    title: "CSS Animations",
-    description: "Collection of pure CSS animations and transitions",
-    path: "/demos/animations",
+    title: "Morphing SVG Text",
+    description: "Dynamic text morphing with clip-path and scroll animations",
+    href: "/demos/morphing-text",
     icon: "✨",
+  },
+  {
+    title: "Infinite 3D Carousel",
+    description:
+      "Smooth infinite carousel with 3D perspective and inertia scrolling",
+    href: "/demos/3d-carousel",
+    icon: "🎠",
+  },
+  {
+    title: "Elastic Grid Layout",
+    description: "Responsive grid with spring physics animations",
+    href: "/demos/elastic-grid",
+    icon: "🎯",
+  },
+  {
+    title: "Layered Parallax Hero",
+    description: "Dynamic parallax hero section with mouse tracking",
+    href: "/demos/parallax-hero",
+    icon: "🌄",
   },
 ];
 ---
 
-<Layout title="Tech Demos">
-  <main class="demos-container">
-    <h1>Tech Demos</h1>
-    <p class="subtitle">Playground for experimenting with web technologies</p>
+<Layout title="CSS Animation Demos">
+  <main class="demo-container">
+    <h1 class="demo-title">CSS Animation Demos</h1>
+    <p class="demo-description">
+      Collection of modern CSS techniques and effects
+    </p>
 
     <div class="demos-grid">
       {
         demos.map((demo) => (
-          <a href={demo.path} class="demo-card">
-            <div class="demo-icon">{demo.icon}</div>
+          <a href={demo.href} class="demo-card">
+            <span class="demo-icon">{demo.icon}</span>
             <h2>{demo.title}</h2>
             <p>{demo.description}</p>
           </a>
