@@ -100,7 +100,7 @@ const words = ["CREATIVE", "DYNAMIC", "MORPHING", "ANIMATED", "FLOWING"];
     font-size: 8rem;
     font-weight: 900;
     color: white;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     z-index: 2;
   }
 
@@ -114,18 +114,7 @@ const words = ["CREATIVE", "DYNAMIC", "MORPHING", "ANIMATED", "FLOWING"];
   .char:hover {
     color: #2196f3;
     transform: scale(1.2) rotate(10deg);
-    text-shadow: 0 0 30px #2196f3;
-  }
-
-  /* Stagger character animations */
-  .char:nth-child(2n) {
-    animation-delay: 0.1s;
-  }
-  .char:nth-child(3n) {
-    animation-delay: 0.2s;
-  }
-  .char:nth-child(4n) {
-    animation-delay: 0.3s;
+    text-shadow: 0 0 15px #2196f3;
   }
 
   .morph-paths {
@@ -236,33 +225,42 @@ const words = ["CREATIVE", "DYNAMIC", "MORPHING", "ANIMATED", "FLOWING"];
   // Word morphing
   function morphWords() {
     const wordElement = document.querySelector(".morph-word");
-    const words = ["MORPHING", "DYNAMIC", "FLOWING", "CREATIVE"];
-    let currentIndex = 0;
+    const word = "MORPHING";
 
-    setInterval(() => {
-      const chars = wordElement?.querySelectorAll(".char");
-      if (!chars) return;
+    const chars = wordElement?.querySelectorAll(".char");
+    if (!chars) return;
 
-      const nextWord = words[(currentIndex + 1) % words.length];
+    chars.forEach((char, i) => {
+      if (i < word.length) {
+        char.textContent = word[i];
+        char.style.opacity = "1";
+        char.style.transform = "scale(1)";
+      } else {
+        char.style.opacity = "0";
+        char.style.transform = "scale(0)";
+      }
+    });
+  }
 
-      chars.forEach((char, i) => {
-        if (i < nextWord.length) {
-          char.textContent = nextWord[i];
-          char.style.opacity = "1";
-          char.style.transform = "scale(1)";
-        } else {
-          char.style.opacity = "0";
-          char.style.transform = "scale(0)";
-        }
-      });
+  function setupCharacterAnimations() {
+    const chars = document.querySelectorAll(".char");
 
-      currentIndex = (currentIndex + 1) % words.length;
-    }, 4000);
+    chars.forEach((char, index) => {
+      // Calculate delay based on character position
+      const delay = index * 0.1; // Increments by 0.1s for each character
+
+      // Apply the animation delay
+      char.style.animationDelay = `${delay}s`;
+
+      // Optional: Add data attribute for debugging
+      char.setAttribute("data-delay", `${delay}s`);
+    });
   }
 
   // Initialize
   document.addEventListener("DOMContentLoaded", () => {
     createParticles();
     morphWords();
+    setupCharacterAnimations();
   });
 </script>
