@@ -1,0 +1,180 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
+---
+
+<Layout title="Flip Credit Card">
+  <main class="demo-container">
+    <header class="demo-header">
+      <a href="/demos" class="back-link">← Back to Demos</a>
+      <h1 class="demo-title">Flip Credit Card</h1>
+      <p class="demo-description">
+        Interactive credit card that flips between front and back views
+      </p>
+    </header>
+
+    <div class="card-wrapper">
+      <div class="credit-card">
+        <div class="card-front">
+          <div class="chip"></div>
+          <div class="card-number">4242 4242 4242 4242</div>
+          <div class="card-info">
+            <div class="card-holder">
+              <span>Card Holder</span>
+              <div>JOHN DOE</div>
+            </div>
+            <div class="card-expires">
+              <span>Expires</span>
+              <div>12/25</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="magnetic-strip"></div>
+          <div class="cvv-container">
+            <div class="cvv-label">CVV</div>
+            <div class="cvv-strip">
+              <span class="cvv">123</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .card-wrapper {
+    perspective: 1000px;
+    padding: 2rem;
+    display: grid;
+    place-items: center;
+    min-height: 400px;
+  }
+
+  .credit-card {
+    width: 400px;
+    height: 250px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+  }
+
+  .credit-card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 2rem;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        transparent 80%
+      ),
+      linear-gradient(35deg, rgba(16, 16, 16, 1), rgba(40, 40, 40, 1));
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(
+      145deg,
+      rgba(16, 16, 16, 1),
+      rgba(40, 40, 40, 1)
+    );
+  }
+
+  .chip {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    border-radius: 6px;
+    margin-bottom: 2.5rem;
+  }
+
+  .card-number {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    font-family: "Arial", sans-serif;
+    font-weight: 300;
+  }
+
+  .card-info {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  .card-holder span,
+  .card-expires span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .magnetic-strip {
+    background: #111;
+    height: 45px;
+    margin: 1.5rem 0;
+  }
+
+  .cvv-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.8rem;
+    border-radius: 4px;
+  }
+
+  .cvv-label {
+    font-size: 0.7rem;
+    color: #333;
+    margin-bottom: 0.3rem;
+  }
+
+  .cvv-strip {
+    background: #f0f0f0;
+    padding: 0.5rem;
+    text-align: right;
+    color: #333;
+  }
+
+  .card-front::after {
+    content: "Bank Name";
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+  }
+
+  @media (max-width: 480px) {
+    .credit-card {
+      width: 300px;
+      height: 188px;
+    }
+
+    .card-number {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<script>
+  const card = document.querySelector(".credit-card");
+  card?.addEventListener("click", () => {
+    card.classList.toggle("flipped");
+  });
+</script>
