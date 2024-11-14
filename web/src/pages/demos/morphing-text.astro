@@ -1,0 +1,268 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
+
+const words = ["CREATIVE", "DYNAMIC", "MORPHING", "ANIMATED", "FLOWING"];
+---
+
+<Layout title="Morphing SVG Text">
+  <main class="demo-container">
+    <header class="demo-header">
+      <a href="/demos" class="back-link">← Back to Demos</a>
+      <h1 class="demo-title">Morphing SVG Text</h1>
+      <p class="demo-description">
+        Complex text morphing with multiple effects and smooth transitions
+      </p>
+    </header>
+
+    <div class="demo-content">
+      <div class="morph-container">
+        <!-- Main morphing text -->
+        <div class="morph-word" data-word="MORPHING">
+          <span class="char">M</span>
+          <span class="char">O</span>
+          <span class="char">R</span>
+          <span class="char">P</span>
+          <span class="char">H</span>
+          <span class="char">I</span>
+          <span class="char">N</span>
+          <span class="char">G</span>
+        </div>
+
+        <!-- SVG Paths for morphing effects -->
+        <svg
+          class="morph-paths"
+          viewBox="0 0 1000 300"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="5" result="coloredBlur"
+              ></feGaussianBlur>
+              <feMerge>
+                <feMergeNode in="coloredBlur"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <path
+            class="path-effect"
+            d="M0,150 Q500,0 1000,150"
+            fill="none"
+            stroke="url(#gradient)"></path>
+          <path
+            class="path-effect"
+            d="M0,150 Q500,300 1000,150"
+            fill="none"
+            stroke="url(#gradient)"></path>
+
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2196f3">
+              <animate
+                attributeName="stop-color"
+                values="#2196f3; #00bcd4; #4caf50; #2196f3"
+                dur="4s"
+                repeatCount="indefinite"></animate>
+            </stop>
+            <stop offset="100%" stop-color="#00bcd4">
+              <animate
+                attributeName="stop-color"
+                values="#00bcd4; #4caf50; #2196f3; #00bcd4"
+                dur="4s"
+                repeatCount="indefinite"></animate>
+            </stop>
+          </linearGradient>
+        </svg>
+
+        <!-- Floating particles -->
+        <div class="particles"></div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .morph-container {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .morph-word {
+    position: relative;
+    display: flex;
+    font-size: 8rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    z-index: 2;
+  }
+
+  .char {
+    position: relative;
+    animation: float 2s ease-in-out infinite;
+    transform-origin: center;
+    transition: all 0.3s ease;
+  }
+
+  .char:hover {
+    color: #2196f3;
+    transform: scale(1.2) rotate(10deg);
+    text-shadow: 0 0 30px #2196f3;
+  }
+
+  /* Stagger character animations */
+  .char:nth-child(2n) {
+    animation-delay: 0.1s;
+  }
+  .char:nth-child(3n) {
+    animation-delay: 0.2s;
+  }
+  .char:nth-child(4n) {
+    animation-delay: 0.3s;
+  }
+
+  .morph-paths {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .path-effect {
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 4s linear infinite;
+    filter: url(#glow);
+  }
+
+  .path-effect:nth-child(2) {
+    animation-delay: -2s;
+  }
+
+  .particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: -1000;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .morph-word {
+      font-size: 4rem;
+    }
+  }
+</style>
+
+<script>
+  let particles: HTMLDivElement[] = [];
+  const colors = ["#2196f3", "#00bcd4", "#4caf50"];
+
+  // Create particles
+  function createParticles() {
+    const container = document.querySelector(".particles");
+    if (!container) return;
+
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement("div");
+      particle.style.cssText = `
+        position: absolute;
+        width: ${Math.random() * 5 + 2}px;
+        height: ${Math.random() * 5 + 2}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: ${Math.random() * 0.5 + 0.2};
+        transform: translate(${Math.random() * 100}vw, ${Math.random() * 100}vh);
+      `;
+      container.appendChild(particle);
+      particles.push(particle);
+
+      // Animate particle
+      animateParticle(particle);
+    }
+  }
+
+  function animateParticle(particle: HTMLDivElement) {
+    const duration = Math.random() * 3000 + 2000;
+    const keyframes = [
+      { transform: particle.style.transform },
+      {
+        transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh)`,
+        opacity: Math.random() * 0.5 + 0.2,
+      },
+    ];
+
+    const animation = particle.animate(keyframes, {
+      duration,
+      easing: "ease-in-out",
+      iterations: Infinity,
+    });
+
+    animation.onfinish = () => animateParticle(particle);
+  }
+
+  // Word morphing
+  function morphWords() {
+    const wordElement = document.querySelector(".morph-word");
+    const words = ["MORPHING", "DYNAMIC", "FLOWING", "CREATIVE"];
+    let currentIndex = 0;
+
+    setInterval(() => {
+      const chars = wordElement?.querySelectorAll(".char");
+      if (!chars) return;
+
+      const nextWord = words[(currentIndex + 1) % words.length];
+
+      chars.forEach((char, i) => {
+        if (i < nextWord.length) {
+          char.textContent = nextWord[i];
+          char.style.opacity = "1";
+          char.style.transform = "scale(1)";
+        } else {
+          char.style.opacity = "0";
+          char.style.transform = "scale(0)";
+        }
+      });
+
+      currentIndex = (currentIndex + 1) % words.length;
+    }, 4000);
+  }
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    createParticles();
+    morphWords();
+  });
+</script>
