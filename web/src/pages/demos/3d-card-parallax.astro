@@ -5,13 +5,15 @@ import { Image } from "astro:assets";
 
 const cards = Array.from({ length: 6 }, (_, i) => ({
   id: i + 1,
-  title: ["Hover Me", "3D Effect", "Interactive"][i],
+  title: ["Hover Me", "3D Effect", "Interactive"][
+    Math.floor(Math.random() * 3)
+  ],
   description: [
     "Move your mouse to see the 3D effect",
     "Smooth transitions and parallax movement",
     "Dynamic lighting and perspective changes",
-  ][i],
-  image: `https://picsum.photos/seed/image${i + 1}/800/600`,
+  ][Math.floor(Math.random() * 3)],
+  image: `https://picsum.photos/seed/image${i * Math.floor(Math.random() * 100) + 1}/800/600`,
 }));
 ---
 
@@ -59,10 +61,9 @@ const cards = Array.from({ length: 6 }, (_, i) => ({
 
   .card {
     position: relative;
-    height: 400px;
+    aspect-ratio: 16 / 9;
     border-radius: 1rem;
     transform-style: preserve-3d;
-    transform: perspective(2000px);
   }
 
   .card-content {
@@ -70,7 +71,6 @@ const cards = Array.from({ length: 6 }, (_, i) => ({
     width: 100%;
     height: 100%;
     border-radius: 1rem;
-    transform-style: preserve-3d;
     transition: transform 0.2s ease-out;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -131,14 +131,16 @@ const cards = Array.from({ length: 6 }, (_, i) => ({
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
+      card.style.setProperty("--mouse-x", `${(x / rect.width) * 100}%`);
+      card.style.setProperty("--mouse-y", `${(y / rect.height) * 100}%`);
+
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = (y - centerY) / 30;
+      const rotateX = (x - centerY) / 30;
       const rotateY = (centerX - x) / 30;
 
-      card.style.setProperty("--mouse-x", `${(x / rect.width) * 100}%`);
-      card.style.setProperty("--mouse-y", `${(y / rect.height) * 100}%`);
+      console.log(rotateX, rotateY);
 
       const content = card.querySelector(".card-content");
       content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
