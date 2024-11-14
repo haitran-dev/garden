@@ -1,0 +1,271 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
+
+const cards = [
+  {
+    title: "Fade Up",
+    description: "Smoothly fades in while sliding upwards",
+    icon: "🪄",
+  },
+  {
+    title: "Fade Side",
+    description: "Elegantly appears from the side",
+    icon: "✨",
+  },
+  {
+    title: "Scale",
+    description: "Scales up while fading in",
+    icon: "🔍",
+  },
+];
+---
+
+<Layout title="Scroll Reveal Animations">
+  <main class="demo-container">
+    <section class="hero-full">
+      <div class="hero reveal">
+        <h1>Pure CSS Scroll Reveal</h1>
+        <p>Scroll down to see the magic!</p>
+        <div class="scroll-indicator">
+          <span>↓</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="cards-grid">
+      {
+        cards.map((card, index) => (
+          <div class="card reveal" style={`--delay: ${index + 2}`}>
+            <div class="card-icon">{card.icon}</div>
+            <h2>{card.title}</h2>
+            <p>{card.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="features">
+      <div class="feature reveal-left">
+        <h2>Slide From Left</h2>
+        <p>Pure CSS animation</p>
+      </div>
+
+      <div class="feature reveal-right">
+        <h2>Slide From Right</h2>
+        <p>Pure CSS animation</p>
+      </div>
+
+      <div class="feature reveal-scale">
+        <h2>Scale Up</h2>
+        <p>Pure CSS animation</p>
+      </div>
+    </div>
+
+    <div class="staggered-list">
+      {
+        Array.from({ length: 5 }).map((_, i) => (
+          <div class="list-item reveal" style={`--delay: ${i}`}>
+            <h3>Staggered Item {i + 1}</h3>
+            <p>CSS-only staggered animation</p>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  section {
+    margin: 4rem 0;
+    padding: 2rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    margin: 4rem 0;
+  }
+
+  .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .features {
+    display: grid;
+    gap: 2rem;
+    margin: 4rem 0;
+  }
+
+  .feature {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .staggered-list {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 200px;
+  }
+
+  .list-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Reveal base styles */
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.6s cubic-bezier(0.5, 0, 0, 1),
+      transform 0.6s cubic-bezier(0.5, 0, 0, 1),
+      visibility 0.6s;
+    transition-delay: calc(var(--delay, 0) * 0.1s);
+    will-change: opacity, transform, visibility;
+  }
+
+  .reveal {
+    transform: translateY(50px);
+  }
+
+  .reveal-left {
+    transform: translateX(-50px);
+  }
+
+  .reveal-right {
+    transform: translateX(50px);
+  }
+
+  .reveal-scale {
+    transform: scale(0.9);
+  }
+
+  /* Visible state */
+  .reveal.is-visible,
+  .reveal-left.is-visible,
+  .reveal-right.is-visible,
+  .reveal-scale.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .hero-full {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: -4rem;
+    left: 50%;
+    font-size: 1.5rem;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translate(-50%, 0);
+    }
+    40% {
+      transform: translate(-50%, -20px);
+    }
+    60% {
+      transform: translate(-50%, -10px);
+    }
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    section {
+      margin: 2rem 0;
+      padding: 1rem;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      transition: none;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .scroll-indicator {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Updated Intersection Observer setup
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -100px 0px", // This means 100px from bottom
+    threshold: 0.15,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealElements = document.querySelectorAll('[class*="reveal"]');
+    revealElements.forEach((element) => observer.observe(element));
+  });
+</script>

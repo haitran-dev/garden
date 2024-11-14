@@ -15,6 +15,7 @@
     "@mozilla/readability": "^0.5.0",
     "astro": "^4.16.9",
     "epub-gen": "^0.1.0",
+    "gsap": "^3.12.5",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3"
   },
