@@ -1,0 +1,448 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/demo-shared.css";
+
+const flexItems = Array.from({ length: 4 }, (_, i) => ({
+  id: i + 1,
+  content: `Item ${i + 1}`,
+}));
+---
+
+<Layout title="Flexbox Visualizer">
+  <main class="demo-container">
+    <header class="demo-header">
+      <a href="/demos" class="back-link">← Back to Demos</a>
+      <h1 class="demo-title">Flexbox Visualizer</h1>
+      <p class="demo-description">
+        Interactive flexbox properties explorer with draggable items
+      </p>
+    </header>
+
+    <div class="visualizer">
+      <div class="controls">
+        <section class="control-group">
+          <h3>Container Properties</h3>
+          <div class="control-item">
+            <label>flex-direction</label>
+            <select class="direction-control">
+              <option value="row">row</option>
+              <option value="column">column</option>
+              <option value="row-reverse">row-reverse</option>
+              <option value="column-reverse">column-reverse</option>
+            </select>
+          </div>
+
+          <div class="control-item">
+            <label>justify-content</label>
+            <select class="justify-control">
+              <option value="flex-start">flex-start</option>
+              <option value="center">center</option>
+              <option value="flex-end">flex-end</option>
+              <option value="space-between">space-between</option>
+              <option value="space-around">space-around</option>
+              <option value="space-evenly">space-evenly</option>
+            </select>
+          </div>
+
+          <div class="control-item">
+            <label>align-items</label>
+            <select class="align-control">
+              <option value="stretch">stretch</option>
+              <option value="flex-start">flex-start</option>
+              <option value="center">center</option>
+              <option value="flex-end">flex-end</option>
+              <option value="baseline">baseline</option>
+            </select>
+          </div>
+
+          <div class="control-item">
+            <label>flex-wrap</label>
+            <select class="wrap-control">
+              <option value="nowrap">nowrap</option>
+              <option value="wrap">wrap</option>
+              <option value="wrap-reverse">wrap-reverse</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <h3>Item Properties</h3>
+          <p class="hint">Drag items to reorder</p>
+          <div class="items-controls">
+            {
+              flexItems.map((item) => (
+                <div class="item-control" data-item={item.id}>
+                  <span class="item-label">Item {item.id}</span>
+                  <label>
+                    order
+                    <input
+                      type="number"
+                      class="order-control"
+                      value="0"
+                      min="0"
+                      max="10"
+                    />
+                  </label>
+                  <label>
+                    flex-grow
+                    <input
+                      type="number"
+                      class="grow-control"
+                      value="0"
+                      min="0"
+                      max="10"
+                    />
+                  </label>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+      </div>
+
+      <div class="preview">
+        <div class="flex-container">
+          {
+            flexItems.map((item) => (
+              <div class="flex-item" draggable="true" data-item={item.id}>
+                {item.content}
+              </div>
+            ))
+          }
+        </div>
+        <div class="axis-indicators">
+          <div class="main-axis">main axis</div>
+          <div class="cross-axis">cross axis</div>
+        </div>
+        <pre class="css-output"><code /></pre>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .visualizer {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .controls {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .control-group {
+    margin-bottom: 2rem;
+  }
+
+  .control-group h3 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .control-item {
+    margin-bottom: 1rem;
+  }
+
+  .control-item label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+  }
+
+  .preview {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .flex-container {
+    min-height: 300px;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    position: relative;
+  }
+
+  .flex-item {
+    padding: 1rem 2rem;
+    background: #f0f0f0;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: move;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+
+  .flex-item:hover {
+    background: #e0e0e0;
+  }
+
+  .flex-item.dragging {
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .axis-indicators {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .main-axis,
+  .cross-axis {
+    position: absolute;
+    color: #666;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .main-axis {
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cross-axis {
+    writing-mode: vertical-rl;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+  }
+
+  .css-output {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .item-control {
+    background: #f5f5f5;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .item-control label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+  }
+
+  .item-control input {
+    width: 50px;
+    padding: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .item-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .visualizer {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const flexContainer = document.querySelector(".flex-container");
+  const cssOutput = document.querySelector(".css-output code");
+  const flexItems = document.querySelectorAll(".flex-item");
+  const controls = document.querySelectorAll("select");
+
+  // Enhanced drag and drop functionality
+  let draggedItem: Element | null = null;
+
+  flexItems.forEach((item) => {
+    item.addEventListener("dragstart", (e) => {
+      draggedItem = item;
+      item.classList.add("dragging");
+
+      // Required for Firefox
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", ""); // Required for drag in Firefox
+      }
+    });
+
+    item.addEventListener("dragend", () => {
+      item.classList.remove("dragging");
+      draggedItem = null;
+      updateCSSOutput();
+    });
+  });
+
+  flexContainer?.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    if (!draggedItem || !flexContainer) return;
+
+    const afterElement = getDragAfterElement(
+      flexContainer,
+      e.clientX,
+      e.clientY,
+    );
+    const draggable = document.querySelector(".dragging");
+    if (draggable) {
+      if (afterElement) {
+        flexContainer.insertBefore(draggable, afterElement);
+      } else {
+        flexContainer.appendChild(draggable);
+      }
+    }
+  });
+
+  function getDragAfterElement(container: Element, x: number, y: number) {
+    const draggableElements = [
+      ...container.querySelectorAll(".flex-item:not(.dragging)"),
+    ];
+
+    return draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = getOffset(box, x, y);
+
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY },
+    ).element;
+  }
+
+  function getOffset(box: DOMRect, x: number, y: number) {
+    const containerStyle = window.getComputedStyle(flexContainer!);
+    const isHorizontal = ["row", "row-reverse"].includes(
+      containerStyle.flexDirection,
+    );
+
+    if (isHorizontal) {
+      return x - (box.left + box.width / 2);
+    } else {
+      return y - (box.top + box.height / 2);
+    }
+  }
+
+  // Update flex properties
+  function updateFlexContainer() {
+    if (!flexContainer || !cssOutput) return;
+
+    const direction = document.querySelector(
+      ".direction-control",
+    ) as HTMLSelectElement;
+    const justify = document.querySelector(
+      ".justify-control",
+    ) as HTMLSelectElement;
+    const align = document.querySelector(".align-control") as HTMLSelectElement;
+    const wrap = document.querySelector(".wrap-control") as HTMLSelectElement;
+
+    const style = {
+      flexDirection: direction.value,
+      justifyContent: justify.value,
+      alignItems: align.value,
+      flexWrap: wrap.value,
+    };
+
+    Object.assign(flexContainer.style, style);
+    updateCSSOutput();
+  }
+
+  // Update item properties
+  function updateFlexItem(item: Element) {
+    const itemId = item.getAttribute("data-item");
+    if (!itemId) return;
+
+    const controls = document.querySelector(`[data-item="${itemId}"]`);
+    if (!controls) return;
+
+    const order = controls.querySelector(".order-control") as HTMLInputElement;
+    const grow = controls.querySelector(".grow-control") as HTMLInputElement;
+
+    (item as HTMLElement).style.order = order.value;
+    (item as HTMLElement).style.flexGrow = grow.value;
+
+    updateCSSOutput();
+  }
+
+  // Update CSS output
+  function updateCSSOutput() {
+    if (!flexContainer || !cssOutput) return;
+
+    const containerStyles = window.getComputedStyle(flexContainer);
+    const itemsStyles = Array.from(flexItems).map((item) => {
+      const styles = window.getComputedStyle(item);
+      return `
+  .flex-item:nth-child(${Array.from(flexItems).indexOf(item) + 1}) {
+    order: ${styles.order};
+    flex-grow: ${styles.flexGrow};
+  }`;
+    });
+
+    cssOutput.textContent = `.flex-container {
+  display: flex;
+  flex-direction: ${containerStyles.flexDirection};
+  justify-content: ${containerStyles.justifyContent};
+  align-items: ${containerStyles.alignItems};
+  flex-wrap: ${containerStyles.flexWrap};
+}
+${itemsStyles.join("\n")}`;
+  }
+
+  // Event listeners
+  controls.forEach((control) => {
+    control.addEventListener("change", updateFlexContainer);
+  });
+
+  document
+    .querySelectorAll(".order-control, .grow-control")
+    .forEach((control) => {
+      control.addEventListener("input", (e) => {
+        const itemId = (e.target as HTMLElement)
+          .closest(".item-control")
+          ?.getAttribute("data-item");
+        if (!itemId) return;
+
+        const item = document.querySelector(
+          `.flex-item[data-item="${itemId}"]`,
+        );
+        if (item) updateFlexItem(item);
+      });
+    });
+
+  // Initial update
+  updateFlexContainer();
+</script>
