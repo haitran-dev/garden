@@ -1,4 +1,4 @@
-### File system
+### Files system
 
 | Command               | Use                         | Example       | Output              |
 | --------------------- | --------------------------- | ------------- | ------------------- |
@@ -36,7 +36,5 @@
 > [!warning] Firewall issue
 > 
 > Need open port 22 (ssh) after enable firewall on vps for ssh from local machine
-
-
 
 

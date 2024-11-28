@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Reboot my journey/Tech/Linux & Deploy/Unix command.md",
+                "file": "Reboot my journey/Tech/Linux & Deploy/Nginx.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Unix command"
+              "title": "Nginx"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 264.5041847229004
   },
   "right": {
     "id": "bb011f95463c4175",
@@ -140,10 +140,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Reboot my journey/Tech/Linux & Deploy/Unix command.md"
+                "file": "Reboot my journey/Tech/Linux & Deploy/Nginx.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Unix command"
+              "title": "Outline of Nginx"
             }
           },
           {
@@ -175,6 +175,14 @@
   },
   "active": "53706dbd345392ca",
   "lastOpenFiles": [
+    "Reboot my journey/Tech/Linux & Deploy/PM2.md",
+    "Reboot my journey/Tech/Linux & Deploy/Nginx.md",
+    "Reboot my journey/Tech/Web development/Magnetic hover effect with pure CSS.md",
+    "Reboot my journey/Tech/Linux & Deploy/Linux commands.md",
+    "Pasted image 20241128144629.png",
+    "Pasted image 20241128142351.png",
+    "Pasted image 20241128142150.png",
+    "Reboot my journey/Tech/Linux & Deploy/SSH.md",
     "Pasted image 20241127181638.png",
     "Pasted image 20241127181114.png",
     "Pasted image 20241127180656.png",
@@ -182,11 +190,6 @@
     "Pasted image 20241127180639.png",
     "Pasted image 20241127172058.png",
     "Pasted image 20241127142624.png",
-    "Pasted image 20241127142029.png",
-    "Reboot my journey/Tech/Linux & Deploy/SSH.md",
-    "Reboot my journey/Tech/Web development/Magnetic hover effect with pure CSS.md",
-    "Reboot my journey/Tech/Linux & Deploy/Unix command.md",
-    "Pasted image 20241127113517.png",
     "Reboot my journey/Tech/Linux & Deploy",
     "Reboot my journey/Tech/Web development/Untitled",
     "Reboot my journey/Tech",
@@ -194,7 +197,6 @@
     "0. Xin chào.md",
     "Screen Recording 2024-11-10 at 15.47.28.mov",
     "Screen Recording 2024-11-10 at 15.43.26.mov",
-    "Pasted image 20241109084752.png",
     "Reboot my journey/Tech/Web development",
     "Reboot my journey/Art",
     "Reboot my web development journey/0. Why reboot ?.md",
