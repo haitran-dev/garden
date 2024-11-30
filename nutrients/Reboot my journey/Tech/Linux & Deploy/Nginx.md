@@ -1,4 +1,4 @@
-Config Nginx for VPS
+## Config Nginx for websites in VPS
 
 1. Install NGINX
 ```bash
@@ -43,7 +43,7 @@ server {
 }
 ```
 
-6. Enable configuration
+6. Enable configuration by create symbolic link
 ```bash
 sudo ln -s /etc/nginx/sites-available/site_name.conf /etc/nginx/sites-enabled/
 ```

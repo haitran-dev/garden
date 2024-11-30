@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Reboot my journey/Tech/Linux & Deploy/Nginx.md",
+                "file": "Reboot my journey/Tech/Linux & Deploy/HTTPS(SSL) with Certbot.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nginx"
+              "title": "HTTPS(SSL) with Certbot"
             }
           }
         ]
@@ -175,14 +175,15 @@
   },
   "active": "53706dbd345392ca",
   "lastOpenFiles": [
-    "Reboot my journey/Tech/Linux & Deploy/PM2.md",
     "Reboot my journey/Tech/Linux & Deploy/Nginx.md",
-    "Reboot my journey/Tech/Web development/Magnetic hover effect with pure CSS.md",
+    "Reboot my journey/Tech/Linux & Deploy/HTTPS(SSL) with Certbot.md",
+    "Reboot my journey/Tech/Linux & Deploy/SSH.md",
     "Reboot my journey/Tech/Linux & Deploy/Linux commands.md",
+    "Reboot my journey/Tech/Linux & Deploy/PM2.md",
+    "Reboot my journey/Tech/Web development/Magnetic hover effect with pure CSS.md",
     "Pasted image 20241128144629.png",
     "Pasted image 20241128142351.png",
     "Pasted image 20241128142150.png",
-    "Reboot my journey/Tech/Linux & Deploy/SSH.md",
     "Pasted image 20241127181638.png",
     "Pasted image 20241127181114.png",
     "Pasted image 20241127180656.png",
