@@ -3,6 +3,12 @@
 - is cryptographic network protocol used to securely access using public-private key pair
 - used for secure remote login
 
+## VPS IP
+
+```
+143.198.194.97
+```
+
 ## Commands
 
 | Command                            | Use                   | Example                 |
