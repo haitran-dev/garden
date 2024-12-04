@@ -1,0 +1,38 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# IDE - VSCode
+.vscode/
+
+# IDE - PyCharm
+.idea/
+
+# Temporary files
+*.swp
+.DS_Store
+Thumbs.db
+
+# Project specific
+tmp/
+uploads/
+*.pdf  # Ignore uploaded PDF files
+
+# Log files
+*.log
+logs/
+
+# Test coverage
+.coverage
+coverage/ 
