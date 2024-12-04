@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Reboot my journey/Tech/Linux & Deploy/Github Actions.md",
+                "file": "Reboot my journey/Tech/Python/Simple RAG.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Github Actions"
+              "title": "Simple RAG"
             }
           }
         ]
@@ -175,12 +175,14 @@
   },
   "active": "53706dbd345392ca",
   "lastOpenFiles": [
+    "Reboot my journey/Tech/Linux & Deploy/Github Actions.md",
+    "Reboot my journey/Tech/Python/Simple RAG.md",
+    "Reboot my journey/Tech/Python",
     "Pasted image 20241201190636.png",
     "Pasted image 20241201173136.png",
     "Pasted image 20241201173132.png",
     "Pasted image 20241201173123.png",
     "Reboot my journey/Tech/Linux & Deploy/SSH.md",
-    "Reboot my journey/Tech/Linux & Deploy/Github Actions.md",
     "Reboot my journey/Tech/Linux & Deploy/PM2.md",
     "Reboot my journey/Tech/Linux & Deploy/HTTPS(SSL) with Certbot.md",
     "Reboot my journey/Tech/Linux & Deploy/Nginx.md",
@@ -192,7 +194,6 @@
     "Pasted image 20241127181638.png",
     "Pasted image 20241127181114.png",
     "Pasted image 20241127180656.png",
-    "Pasted image 20241127180653.png",
     "Reboot my journey/Tech/Linux & Deploy",
     "Reboot my journey/Tech/Web development/Untitled",
     "Reboot my journey/Tech",
@@ -208,7 +209,6 @@
     "smart-chats/UNTITLED CHAT 2024-10-29 07 05 05.md",
     "smart-chats",
     "Gemini Chats/New Chat 16.gemini",
-    "Gemini Chats/New Chat 15.gemini",
     "0. Getting Started/Hello Markdown.md",
     "0. Getting Started/Internal LInk.md",
     "2024-10-24.md",
