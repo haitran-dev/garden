@@ -1,20 +1,22 @@
 import fitz  # PyMuPDF
 from pytesseract import pytesseract, Output
 from PIL import Image
-from pdf2image import convert_from_path
-from typing import List, Dict
-import os
+from pdf2image import convert_from_bytes
+from typing import List, Dict, Union
+import io
 import platform
 from pathlib import Path
 from tqdm import tqdm
+import numpy
+from PIL import ImageEnhance
 
 class PDFProcessor:
-    def __init__(self, pdf_path: str, languages: str = 'eng+vie'):
+    def __init__(self, pdf_source: Union[str, io.BytesIO], languages: str = 'eng+vie'):
         """
-        Initialize with language support
-        languages: str - Tesseract language codes, e.g., 'eng+vie' for English and Vietnamese
+        Initialize with PDF source support
+        pdf_source: Can be either a file path (str) or BytesIO object
         """
-        self.pdf_path = pdf_path
+        self.pdf_source = pdf_source
         self.chunks = []
         self.languages = languages
         self.configure_tesseract()
@@ -39,60 +41,71 @@ class PDFProcessor:
             )
 
     def extract_text_native(self) -> List[Dict]:
-        """
-        Extract text using PyMuPDF (faster, for native PDFs)
-        """
-        doc = fitz.open(self.pdf_path)
+        """Extract text using PyMuPDF (faster, for native PDFs)"""
+        # Handle both file path and BytesIO
+        if isinstance(self.pdf_source, io.BytesIO):
+            doc = fitz.open(stream=self.pdf_source.getvalue(), filetype="pdf")
+        else:
+            doc = fitz.open(self.pdf_source)
+            
         text_contents = []
         
         for page_num in range(len(doc)):
             page = doc[page_num]
             text = page.get_text()
-            if text.strip():  # Check if text was extracted
+            if text.strip():
                 text_contents.append({
                     'page': page_num + 1,
                     'content': text,
-                    'source': self.pdf_path,
                     'extraction_method': 'native'
                 })
                 
         return text_contents
 
-    def extract_text_ocr(self, output_dir: str = None) -> List[Dict]:
-        """
-        Extract text using OCR with improved language support
-        """
+    def extract_text_ocr(self) -> List[Dict]:
+        """Extract text using OCR with improved settings for Vietnamese text"""
         print(f"Converting PDF to images...")
-        images = convert_from_path(self.pdf_path)
-        text_contents = []
         
-        # OCR configuration
-        custom_config = f'-l {self.languages} --psm 6 --oem 3'
+        # Handle both file path and BytesIO
+        if isinstance(self.pdf_source, io.BytesIO):
+            images = convert_from_bytes(self.pdf_source.getvalue(), dpi=300)  # Increased DPI
+        else:
+            images = convert_from_path(self.pdf_source, dpi=300)  # Increased DPI
+            
+        text_contents = []
+        # Enhanced OCR configuration for better capital letter recognition
+        custom_config = (
+            f'-l {self.languages} '  # Language packs
+            '--psm 6 '               # Assume uniform block of text
+            '--oem 3 '              # LSTM neural net mode
+            '-c preserve_interword_spaces=1 '  # Preserve spacing
+            '-c tessedit_char_blacklist=§ '    # Remove problematic characters
+            '-c tessedit_do_invert=0 '         # Don't invert colors
+            '-c textord_heavy_nr=1 '           # Better handling of bold text
+            '-c textord_min_linesize=3 '       # Minimum text size
+            '-c textord_min_xheight=4 '        # Minimum character height
+        )
         
         print(f"Processing {len(images)} pages with OCR...")
         for i, image in tqdm(enumerate(images), total=len(images), desc="OCR Processing"):
-            if output_dir:
-                img_path = os.path.join(output_dir, f"page_{i + 1}.png")
-                image.save(img_path, "PNG")
-                # Get detailed OCR data
-                ocr_data = pytesseract.image_to_data(
-                    Image.open(img_path), 
-                    config=custom_config, 
-                    output_type=Output.DICT
-                )
-                text = self._reconstruct_text(ocr_data)
-            else:
-                ocr_data = pytesseract.image_to_data(
-                    image, 
-                    config=custom_config, 
-                    output_type=Output.DICT
-                )
-                text = self._reconstruct_text(ocr_data)
-                
+            # Preprocess image for better OCR
+            img_pil = Image.fromarray(numpy.array(image))
+            img_pil = img_pil.convert('L')  # Convert to grayscale
+            
+            # Enhance image contrast
+            enhancer = ImageEnhance.Contrast(img_pil)
+            img_pil = enhancer.enhance(1.5)  # Increase contrast
+            
+            ocr_data = pytesseract.image_to_data(
+                img_pil,
+                config=custom_config,
+                output_type=Output.DICT
+            )
+            text = self._reconstruct_text(ocr_data)
+            
             text_contents.append({
                 'page': i + 1,
                 'content': text,
-                'source': self.pdf_path,
                 'extraction_method': 'ocr'
             })
             
@@ -144,25 +157,19 @@ class PDFProcessor:
                 
         return chunked_texts
 
-    def process(self, output_dir: str = None, chunk_size: int = 1000) -> List[Dict]:
-        """
-        Main processing pipeline with fallback
-        """
+    def process(self) -> List[Dict]:
+        """Main processing pipeline"""
         try:
-            # Try native extraction first
             text_contents = self.extract_text_native()
-            
-            # Check if we got meaningful text
             total_text = ''.join(t['content'] for t in text_contents)
-            if len(total_text.strip()) < 50:  # Arbitrary threshold
+            if len(total_text.strip()) < 50:
                 raise Exception("Insufficient text extracted, falling back to OCR")
-                
         except Exception as e:
             print(f"Native extraction failed or insufficient: {e}")
             print("Falling back to OCR...")
-            text_contents = self.extract_text_ocr(output_dir)
+            text_contents = self.extract_text_ocr()
             
-        self.chunks = self.chunk_text(text_contents, chunk_size)
+        self.chunks = self.chunk_text(text_contents)
         return self.chunks
 
 # Usage
