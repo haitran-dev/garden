@@ -5,8 +5,18 @@ from langchain_core.documents import Document
 from typing import List
 import tempfile
 import os
+from datetime import datetime
+import logging
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from fastapi.responses import StreamingResponse
+import json
+import asyncio
 
 app = FastAPI()
+
+# Thêm cấu hình logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 async def process_pdf_with_langchain(file_path: str) -> List[Document]:
     """Process PDF with Langchain's PyMuPDF loader using lazy loading"""
@@ -30,26 +40,6 @@ async def split_documents(documents: List[Document],
     )
     return text_splitter.split_documents(documents)
 
-def format_response(documents: List[Document]) -> dict:
-    """Format documents into API response"""
-    return {
-        "pages": [
-            {
-                "page_number": doc.metadata.get("page", 0) + 1,
-                "text": doc.page_content,
-                "metadata": {
-                    "source": doc.metadata.get("source"),
-                    "format": doc.metadata.get("format", "pdf"),
-                    "total_pages": doc.metadata.get("total_pages")
-                }
-            }
-            for doc in documents
-        ],
-        "metadata": {
-            "total_pages": len(documents),
-            "processing_status": "success"
-        }
-    }
 
 async def save_upload_file(file: UploadFile) -> str:
     """Save uploaded file to temporary location and return path"""
@@ -59,25 +49,40 @@ async def save_upload_file(file: UploadFile) -> str:
         tmp_file.flush()
         return tmp_file.name
 
+async def process_with_status(split_docs: List[Document]):
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    total = len(split_docs)
+    
+    async def generate():
+        for i, doc in enumerate(split_docs, 1):
+            embedding = embeddings.embed_query(doc.page_content)
+            yield json.dumps({
+                "status": f"Processing chunk {i}/{total}",
+                "progress": round((i/total) * 100, 2),
+                "embedding": embedding
+            }) + "\n"
+            await asyncio.sleep(0)  # Cho phép event loop xử lý các task khác
+    
+    return StreamingResponse(generate(), media_type="application/x-ndjson")
+
 @app.post("/process-pdf/")
 async def process_pdf(file: UploadFile):
     """Process PDF file and return extracted text with metadata"""
     try:
+        start_time = datetime.now()
         tmp_path = await save_upload_file(file)
         
         # Process PDF
         documents = await process_pdf_with_langchain(tmp_path)
         
         # Split into chunks if needed
-        split_docs = await split_documents(documents)
-        
-        # Format response
-        response = format_response(split_docs)
-        
-        # Clean up temp file
-        os.unlink(tmp_path)
-        
-        return response
+        chunks = await split_documents(documents)
+        return await process_with_status(chunks)
 
     except Exception as e:
+        logger.error(f"Error processing {file.filename}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
