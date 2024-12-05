@@ -11,6 +11,8 @@ import json
 import asyncio
 from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
+from langchain_google_genai import GoogleGenerativeAI
+import os
 
 app = FastAPI()
 
@@ -38,6 +40,12 @@ vector_store = VectorStore()
 # Thêm cấu hình logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
+# Initialize the LLM
+llm = GoogleGenerativeAI(
+    model="gemini-pro",  # Sử dụng model Gemini Pro
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 async def process_pdf_with_langchain(file_path: str) -> List[Document]:
     """Process PDF with Langchain's PyMuPDF loader using lazy loading"""
@@ -154,11 +162,22 @@ async def search_chunks(
         
         # Tạo retriever từ vectordb
         retriever = vectordb.as_retriever(
-            search_type="similarity"
+            search_type="similarity",
+            search_kwargs={"k": 4}  # Lấy 4 document liên quan nhất
         )
         
         # Lấy relevant documents
         docs = retriever.invoke(query)
+        
+        # Prepare context from document chunks
+        context = " ".join([doc.page_content for doc in docs])
+        
+        prompt = f"Based on the following context, understand and lookup the information or relation in context, answer the query: {query}\n\nContext: {context}"
+        
+        # Sử dụng invoke() thay vì generate()
+        llm_response = llm.invoke(prompt)
+        
+        print('prompt', prompt)
         
         return {
             "query": query,
@@ -169,10 +188,12 @@ async def search_chunks(
                     "metadata": doc.metadata
                 }
                 for doc in docs
-            ]
+            ],
+            "llm_response": llm_response
         }
         
     except Exception as e:
+        logger.error(f"Error in search_chunks: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/health")
