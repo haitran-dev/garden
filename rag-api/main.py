@@ -4,13 +4,12 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from typing import List
 import tempfile
-import os
-from datetime import datetime
 import logging
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from fastapi.responses import StreamingResponse
 import json
 import asyncio
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 app = FastAPI()
 
@@ -50,18 +49,21 @@ async def save_upload_file(file: UploadFile) -> str:
         return tmp_file.name
 
 async def process_with_status(split_docs: List[Document]):
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001",
+        google_api_key="AIzaSyBS99uBPiBM5MJardfZGAgIt1W5Tc5hPtM"
+    )
     total = len(split_docs)
     
     async def generate():
-        for i, doc in enumerate(split_docs, 1):
+        for i, doc in enumerate(split_docs, 1): 
             embedding = embeddings.embed_query(doc.page_content)
             yield json.dumps({
                 "status": f"Processing chunk {i}/{total}",
                 "progress": round((i/total) * 100, 2),
                 "embedding": embedding
             }) + "\n"
-            await asyncio.sleep(0)  # Cho phép event loop xử lý các task khác
+            await asyncio.sleep(0)
     
     return StreamingResponse(generate(), media_type="application/x-ndjson")
 
@@ -69,7 +71,6 @@ async def process_with_status(split_docs: List[Document]):
 async def process_pdf(file: UploadFile):
     """Process PDF file and return extracted text with metadata"""
     try:
-        start_time = datetime.now()
         tmp_path = await save_upload_file(file)
         
         # Process PDF
