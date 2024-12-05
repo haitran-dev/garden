@@ -9,7 +9,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from fastapi.responses import StreamingResponse
 import json
 import asyncio
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
 import os
@@ -21,9 +20,10 @@ load_dotenv()
 
 class VectorStore:
     def __init__(self):
-        self.embeddings = GoogleGenerativeAIEmbeddings(
-            model="models/embedding-001",
-            google_api_key=os.getenv("GOOGLE_API_KEY")
+        # Sử dụng model mạnh hơn
+        self.embeddings = HuggingFaceEmbeddings(
+            model_name="BAAI/bge-large-en-v1.5",  # Model mạnh hơn
+            model_kwargs={'device': 'cpu'}  # Hoặc 'cuda' nếu có GPU
         )
     
     def get_db(self, collection_name: str) -> Chroma:
@@ -175,6 +175,7 @@ async def search_chunks(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
