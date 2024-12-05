@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, HTTPException, Query
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
-from typing import List, Optional
+from typing import List
 import tempfile
 import logging
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -11,7 +11,6 @@ import json
 import asyncio
 from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
-import os
 
 app = FastAPI()
 
